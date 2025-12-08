@@ -1,5 +1,11 @@
+name: Release VSCode Extension
+
+on:
+  push:
+    branches: [ "main" ]
+
 permissions:
-  contents: write
+  contents: write   # allow creating releases
 
 jobs:
   release:
