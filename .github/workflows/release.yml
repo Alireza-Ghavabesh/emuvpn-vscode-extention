@@ -1,11 +1,5 @@
-name: Release VSCode Extension
-
-on:
-  push:
-    branches: [ "main" ]
-
 permissions:
-  contents: write   # <-- this is the critical fix
+  contents: write
 
 jobs:
   release:
@@ -23,11 +17,10 @@ jobs:
         run: npm install
 
       - name: Install VSCE
-        run: npm install -g @vscode/vsce jq
+        run: npm install -g @vscode/vsce
 
       - name: Read version from package.json
-        id: get_version
-        run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+        run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
 
       - name: Package VSCode extension
         run: |
@@ -58,3 +51,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./emuVPN-proxy-toggle-${{ env.VERSION }}.vsix
           asset_name: emuVPN-proxy-toggle-${{ env.VERSION }}.vsix
+          asset_content_type: application/octet-stream
