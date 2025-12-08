@@ -20,15 +20,21 @@ jobs:
         run: npm install
 
       - name: Install VSCE
-        run: npm install -g @vscode/vsce
+        run: npm install -g @vscode/vsce jq
+
+      - name: Read version from package.json
+        id: get_version
+        run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
 
       - name: Package VSCode extension
         run: |
           npm run vscode:prepublish
           vsce package
 
-      - name: Zip VSCode extension
-        run: zip -r emuVPN-proxy-toggle-0.0.1.zip emuVPN-proxy-toggle-0.0.1.vsix
+      - name: Rename VSIX with version
+        run: |
+          FILE=$(ls *.vsix)
+          mv "$FILE" "emuVPN-proxy-toggle-${VERSION}.vsix"
 
       - name: Create Release
         id: create_release
@@ -47,5 +53,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./emuVPN-proxy-toggle-0.0.1.zip
-          asset_name: emuVPN-proxy-toggle-0.0.1.zip
+          asset_path: ./emuVPN-proxy-toggle-${{ env.VERSION }}.vsix
+          asset_name: emuVPN-proxy-toggle-${{ env.VERSION }}.vsix

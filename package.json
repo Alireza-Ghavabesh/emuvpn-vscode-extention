@@ -1,8 +1,8 @@
 {
-  "name": "proxy-toggle",
+  "name": "emuvpn-proxy-toggle",
   "displayName": "Proxy Toggle",
   "description": "Quickly switch between Windows proxy, WSL proxy, or disable",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "publisher": "alireza-ghavabesh",
   "engines": {
     "vscode": "^1.80.0"
@@ -28,7 +28,8 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "package": "npm run compile && vsce package"
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
