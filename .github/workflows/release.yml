@@ -2,10 +2,11 @@ name: Release VSCode Extension
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]   # Trigger only when pushing to main
+  workflow_dispatch:        # Allow manual trigger from GitHub UI
 
 permissions:
-  contents: write   # allow creating releases
+  contents: write           # Needed to create releases and upload assets
 
 jobs:
   release:
@@ -26,8 +27,9 @@ jobs:
         run: npm install -g @vscode/vsce
 
       - name: Read version from package.json
-        run: echo "VERSION=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
-
+        run: |
+          VERSION=$(node -p 'require("./package.json").version')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Package VSCode extension
         run: |
