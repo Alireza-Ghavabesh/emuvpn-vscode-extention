@@ -21,7 +21,9 @@ jobs:
         run: npm install
 
       - name: Package VSCode extension
-        run: npm run vscode:prepublish && vsce package
+        run: |
+          npm run vscode:prepublish
+          vsce package
 
       - name: Create Release
         id: create_release
