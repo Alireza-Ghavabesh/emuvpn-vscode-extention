@@ -2,8 +2,7 @@ name: Release VSCode Extension
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches: [ "main" ]
 
 jobs:
   release:
@@ -25,6 +24,9 @@ jobs:
           npm run vscode:prepublish
           vsce package
 
+      - name: Zip VSCode extension
+        run: zip -r emuVPN-proxy-toggle-0.0.1.zip emuVPN-proxy-toggle-0.0.1.vsix
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -36,12 +38,22 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          draft: false
+          prerelease: false
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: $(ls *.vsix)
-          asset_name: $(ls *.vsix)
-          asset_content_type: application/octet-stream
+          asset_path: ./emuVPN-proxy-toggle-0.0.1.zip
+          asset_name: emuVPN-proxy-toggle-0.0.1.zip
