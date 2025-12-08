@@ -3,6 +3,7 @@
   "displayName": "Proxy Toggle",
   "description": "Quickly switch between Windows proxy, WSL proxy, or disable",
   "version": "0.0.1",
+  "publisher": "alireza-ghavabesh",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -34,5 +35,9 @@
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0",
     "@vscode/test-electron": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alireza-Ghavabesh/adb-connector-vscode-extention.git"
   }
 }

@@ -1,0 +1,15 @@
+# Exclude source code (only ship compiled JS in /out)
+src/**
+
+# Exclude TypeScript config
+tsconfig.json
+
+# Exclude npm metadata
+node_modules/**
+
+# Exclude git and VS Code project files
+.gitignore
+.vscode/**
+
+# Exclude test files if any
+test/**
