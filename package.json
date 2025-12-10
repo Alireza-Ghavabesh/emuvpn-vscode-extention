@@ -2,7 +2,7 @@
   "name": "emuvpn-proxy-toggle",
   "displayName": "Proxy Toggle",
   "description": "Quickly switch between Windows proxy, WSL proxy, or disable",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "alireza-ghavabesh",
   "engines": {
     "vscode": "^1.80.0"
